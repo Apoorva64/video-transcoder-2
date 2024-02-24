@@ -5,7 +5,7 @@ from kafka import KafkaConsumer, KafkaProducer
 from pathlib import Path
 
 from config import MINIO_VIDEO_SPLIT_BUCKET, minio_client, KAFKA_BROKER, MINIO_VIDEO_SPLITTED_BUCKET, \
-    VIDEO_TRANSCODE_TOPIC, TEMP_FOLDER
+    VIDEO_TRANSCODE_TOPIC, TEMP_FOLDER, MAX_REBALANCE_TIMEOUT
 
 VIDEO_SPLIT_FOLDER = TEMP_FOLDER / Path('video-split')
 
@@ -15,7 +15,8 @@ if not VIDEO_SPLIT_FOLDER.exists():
 logger = logging.getLogger("splitter")
 # decode json
 consumer = KafkaConsumer('video-split', bootstrap_servers=KAFKA_BROKER,
-                         value_deserializer=lambda m: json.loads(m.decode('utf-8')), group_id='splitter')
+                         value_deserializer=lambda m: json.loads(m.decode('utf-8')), group_id='splitter',
+                         max_poll_interval_ms=MAX_REBALANCE_TIMEOUT)
 producer = KafkaProducer(bootstrap_servers=KAFKA_BROKER)
 for message in consumer:
     filename = message.value['filename']

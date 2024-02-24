@@ -5,7 +5,7 @@ from ffmpeg import FFmpeg
 from kafka import KafkaConsumer
 
 from config import VIDEO_CONCAT_TOPIC, KAFKA_BROKER, TEMP_FOLDER, minio_client, \
-    MINIO_VIDEO_TRANSCODED_BUCKET, MINIO_VIDEO_CONCATTED_BUCKET
+    MINIO_VIDEO_TRANSCODED_BUCKET, MINIO_VIDEO_CONCATTED_BUCKET, MAX_REBALANCE_TIMEOUT
 
 import ffmpeg
 
@@ -14,7 +14,7 @@ consumer = KafkaConsumer(
     bootstrap_servers=KAFKA_BROKER,
     value_deserializer=lambda m: json.loads(m.decode("utf-8")),
     group_id="concater",
-)
+    max_poll_interval_ms=MAX_REBALANCE_TIMEOUT)
 
 logger = logging.getLogger("concater")
 

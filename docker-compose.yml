@@ -45,3 +45,49 @@ services:
       MINIO_ADDRESS: ':9000'
       MINIO_CONSOLE_ADDRESS: ':9001'
     command: minio server /data
+
+  video_loader:
+    image: apoorva64/transcoder
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - kafka-ui
+    env_file:
+      - .env
+    command: python3 -u src/video_loader.py
+
+  splitter:
+    image: apoorva64/transcoder
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - kafka-ui
+    env_file:
+      - .env
+    command: python3 -u src/splitter.py
+
+  transcoder:
+    image: apoorva64/transcoder
+    scale: 4
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - kafka-ui
+    env_file:
+      - .env
+
+    command: python3 -u src/transcoder.py
+
+  concater:
+    image: apoorva64/transcoder
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - kafka-ui
+    env_file:
+      - .env
+    command: python3 -u src/concater.py
