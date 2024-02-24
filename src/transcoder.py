@@ -9,7 +9,8 @@ from config import KAFKA_BROKER, minio_client, MINIO_VIDEO_SPLITTED_BUCKET, VIDE
     MINIO_VIDEO_TRANSCODED_BUCKET, TEMP_FOLDER, VIDEO_CONCAT_TOPIC
 
 consumer = KafkaConsumer(VIDEO_TRANSCODE_TOPIC, bootstrap_servers=KAFKA_BROKER,
-                         value_deserializer=lambda m: json.loads(m.decode('utf-8')), group_id='transcoder')
+                         value_deserializer=lambda m: json.loads(m.decode('utf-8')), group_id='transcoder',
+                         auto_offset_reset='earliest', enable_auto_commit=True, max_poll_records=1)
 producer = KafkaProducer(bootstrap_servers=KAFKA_BROKER)
 
 logger = logging.getLogger("transcoder")

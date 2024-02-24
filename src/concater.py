@@ -68,13 +68,16 @@ for message in consumer:
         )
     )
 
+
     @ffmpeg.on("progress")
     def on_progress(progress):
         logger.info(f"Frame: {progress.frame}  - Fps: {progress.fps}")
 
+
     @ffmpeg.on("completed")
     def on_completed():
         logger.info("Job Completed !!! 🎉")
+
 
     # minio object name
     object_name = f"{filename}"
@@ -87,7 +90,6 @@ for message in consumer:
 
             raise e
 
-
         minio_client.fput_object(MINIO_VIDEO_CONCATTED_BUCKET, object_name, output_file)
         logger.info(f"Uploaded file: {object_name}")
 
@@ -99,13 +101,11 @@ for message in consumer:
     # delete concat_list file
     concat_list_file.unlink(missing_ok=True)
     # delete output file
-    output_file.unlink( missing_ok=True)
+    output_file.unlink(missing_ok=True)
     logger.info(f"Deleted file: {output_file}")
     # delete "base64" folder in temp folder
     for file in (CONCAT_TEMP_FOLDER / base64).glob("*"):
-        file.unlink( missing_ok=True)
+        file.unlink(missing_ok=True)
 
-    (CONCAT_TEMP_FOLDER / base64).rmdir()
-
-
-
+    if (CONCAT_TEMP_FOLDER / base64).is_dir():
+        (CONCAT_TEMP_FOLDER / base64).rmdir()
