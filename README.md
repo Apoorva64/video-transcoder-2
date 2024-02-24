@@ -10,3 +10,5 @@ python3 src/splitter.py
 python3 src/transcoder.py
 python3 src/video_loader.py
 ```
+
+# put a video in the input bucket and check the output bucket
