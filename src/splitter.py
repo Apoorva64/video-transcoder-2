@@ -15,7 +15,7 @@ if not VIDEO_SPLIT_FOLDER.exists():
 logger = logging.getLogger("splitter")
 # decode json
 consumer = KafkaConsumer('video-split', bootstrap_servers=KAFKA_BROKER,
-                         value_deserializer=lambda m: json.loads(m.decode('utf-8')))
+                         value_deserializer=lambda m: json.loads(m.decode('utf-8')), group_id='splitter')
 producer = KafkaProducer(bootstrap_servers=KAFKA_BROKER)
 for message in consumer:
     filename = message.value['filename']

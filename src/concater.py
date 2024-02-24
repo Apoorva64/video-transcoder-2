@@ -13,6 +13,7 @@ consumer = KafkaConsumer(
     VIDEO_CONCAT_TOPIC,
     bootstrap_servers=KAFKA_BROKER,
     value_deserializer=lambda m: json.loads(m.decode("utf-8")),
+    group_id="concater",
 )
 
 logger = logging.getLogger("concater")
@@ -87,8 +88,8 @@ for message in consumer:
             raise e
 
 
-    minio_client.fput_object(MINIO_VIDEO_CONCATTED_BUCKET, object_name, output_file)
-    logger.info(f"Uploaded file: {object_name}")
+        minio_client.fput_object(MINIO_VIDEO_CONCATTED_BUCKET, object_name, output_file)
+        logger.info(f"Uploaded file: {object_name}")
 
     # delete "base64" folder
     for file in minio_client.list_objects(MINIO_VIDEO_TRANSCODED_BUCKET, prefix=base64, recursive=True):
@@ -96,16 +97,15 @@ for message in consumer:
             minio_client.remove_object(MINIO_VIDEO_TRANSCODED_BUCKET, file.object_name)
     logger.info(f"Deleted folder: {base64}")
     # delete concat_list file
-    concat_list_file.unlink()
+    concat_list_file.unlink(missing_ok=True)
     # delete output file
-    output_file.unlink()
+    output_file.unlink( missing_ok=True)
     logger.info(f"Deleted file: {output_file}")
     # delete "base64" folder in temp folder
     for file in (CONCAT_TEMP_FOLDER / base64).glob("*"):
-        file.unlink()
+        file.unlink( missing_ok=True)
 
     (CONCAT_TEMP_FOLDER / base64).rmdir()
-
 
 
 
