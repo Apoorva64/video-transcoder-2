@@ -25,7 +25,7 @@ for message in consumer:
     index = message.value['index']
     total = message.value['total']
     # download file from video-split bucket
-    download_path = VIDEO_TRANSCODE_TEMP_FOLDER / filename
+    download_path = VIDEO_TRANSCODE_TEMP_FOLDER / file_part
     output_file_path = VIDEO_TRANSCODE_TEMP_FOLDER / f"{base64}_transcoded_{index}.mkv"
     minio_client.fget_object(MINIO_VIDEO_SPLITTED_BUCKET, file_part, download_path)
     # transcode video

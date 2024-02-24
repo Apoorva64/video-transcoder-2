@@ -87,7 +87,9 @@ for message in consumer:
              'file_part': object_name,
              'index': i,
              'total': len(files) - 1
-             }).encode('utf-8'))
+             }).encode('utf-8'),
+                      key=object_name.encode('utf-8')
+                      )
 
     # delete folder
     logger.info(f"Deleting folder: {output_folder}")

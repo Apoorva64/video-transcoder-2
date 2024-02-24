@@ -4,7 +4,7 @@ import logging
 from ffmpeg import FFmpeg
 from kafka import KafkaConsumer
 
-from config import VIDEO_CONCAT_TOPIC, KAFKA_BROKER, TEMP_FOLDER, minio_client, MINIO_VIDEO_CONCAT_BUCKET, \
+from config import VIDEO_CONCAT_TOPIC, KAFKA_BROKER, TEMP_FOLDER, minio_client, \
     MINIO_VIDEO_TRANSCODED_BUCKET, MINIO_VIDEO_CONCATTED_BUCKET
 
 import ffmpeg
