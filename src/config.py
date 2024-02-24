@@ -34,6 +34,7 @@ MAX_REBALANCE_TIMEOUT = os.getenv("MAX_REBALANCE_TIMEOUT", 600000)
 
 TEMP_FOLDER = Path(os.getenv("TEMP_FOLDER", "../temp"))
 
+SEGMENT_TIME = os.getenv("SEGMENT_TIME", '00:02:00')
 
 
 minio_client = Minio(MINIO_URL, access_key=MINIO_ACCESS_KEY, secret_key=MINIO_SECRET, secure=MINIO_SECURE)

@@ -51,6 +51,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    restart: always
+
     depends_on:
       - kafka-ui
     env_file:
@@ -62,6 +64,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    restart: always
+
     depends_on:
       - kafka-ui
     env_file:
@@ -71,6 +75,7 @@ services:
   transcoder:
     image: apoorva64/transcoder
     scale: 4
+    restart: always
     build:
       context: .
       dockerfile: Dockerfile
@@ -83,6 +88,7 @@ services:
 
   concater:
     image: apoorva64/transcoder
+    restart: always
     build:
       context: .
       dockerfile: Dockerfile

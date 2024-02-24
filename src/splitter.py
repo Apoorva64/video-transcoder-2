@@ -5,7 +5,7 @@ from kafka import KafkaConsumer, KafkaProducer
 from pathlib import Path
 
 from config import MINIO_VIDEO_SPLIT_BUCKET, minio_client, KAFKA_BROKER, MINIO_VIDEO_SPLITTED_BUCKET, \
-    VIDEO_TRANSCODE_TOPIC, TEMP_FOLDER, MAX_REBALANCE_TIMEOUT
+    VIDEO_TRANSCODE_TOPIC, TEMP_FOLDER, MAX_REBALANCE_TIMEOUT, SEGMENT_TIME
 
 VIDEO_SPLIT_FOLDER = TEMP_FOLDER / Path('video-split')
 
@@ -41,7 +41,7 @@ for message in consumer:
         .output(template, {
             'c': 'copy',
             'map': '0',
-            'segment_time': '00:10:00',
+            'segment_time': SEGMENT_TIME,
             'f': 'segment',
             'reset_timestamps': '1',
         })
