@@ -5,6 +5,6 @@ resources:
   - minio-service.yaml
   - env-configmap.yaml
   - video-loader-deployment.yaml
-  - video-splitter-deployment.yaml
+  - splitter-deployment.yaml
   - transcoder-deployment.yaml
-  - video-concatter-deployment.yaml
+  - concater-deployment.yaml
