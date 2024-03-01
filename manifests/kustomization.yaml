@@ -1,4 +1,5 @@
-resources:
+resources: []
+
 #  - kafka.yaml
 #  - minio-claim0-persistentvolumeclaim.yaml
 #  - minio-deployment.yaml
