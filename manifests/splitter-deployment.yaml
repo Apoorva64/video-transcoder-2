@@ -74,6 +74,11 @@ spec:
             configMapKeyRef:
               key: TEMP_FOLDER
               name: env
+        - name: NUMBER_OF_PARTITIONS
+          valueFrom:
+            configMapKeyRef:
+              key: NUMBER_OF_PARTITIONS
+              name: env
         image: ghcr.io/apoorva64/video-transcoder-2/transcoder:latest
         imagePullPolicy: ""
         name: splitter

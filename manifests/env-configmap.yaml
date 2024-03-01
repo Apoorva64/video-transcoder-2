@@ -7,7 +7,7 @@ data:
   MINIO_VIDEO_SPLIT_BUCKET: transcoding-video-split
   MINIO_VIDEO_SPLITTED_BUCKET: transcoding-video-splitted
   MINIO_VIDEO_TRANSCODED_BUCKET: transcoding-video-transcoded
-  SEGMENT_TIME: "00:02:00"
+  SEGMENT_TIME: "00:01:00"
   TEMP_FOLDER: /data
 kind: ConfigMap
 metadata:

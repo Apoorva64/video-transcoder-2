@@ -1,5 +1,5 @@
 resources:
-  - kafka.yaml
+#  - kafka.yaml
   - minio-claim0-persistentvolumeclaim.yaml
   - minio-deployment.yaml
   - minio-service.yaml
@@ -8,6 +8,3 @@ resources:
   - splitter-deployment.yaml
   - transcoder-deployment.yaml
   - concater-deployment.yaml
-
-images:
-  -
