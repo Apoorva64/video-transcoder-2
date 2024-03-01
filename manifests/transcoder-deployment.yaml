@@ -9,7 +9,7 @@ metadata:
     io.kompose.service: transcoder
   name: transcoder
 spec:
-  replicas: 4
+  replicas: 8
   selector:
     matchLabels:
       io.kompose.service: transcoder
