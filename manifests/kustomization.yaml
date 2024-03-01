@@ -4,11 +4,11 @@ resources:
   - video-concat-topic.yaml
   - video-split-topic.yaml
   - video-transcode-topic.yaml
-#  - minio-claim0-persistentvolumeclaim.yaml
-#  - minio-deployment.yaml
-#  - minio-service.yaml
-#  - env-configmap.yaml
-#  - video-loader-deployment.yaml
-#  - splitter-deployment.yaml
-#  - transcoder-deployment.yaml
-#  - concater-deployment.yaml
+  - minio-claim0-persistentvolumeclaim.yaml
+  - minio-deployment.yaml
+  - minio-service.yaml
+  - env-configmap.yaml
+  - video-loader-deployment.yaml
+  - splitter-deployment.yaml
+  - transcoder-deployment.yaml
+  - concater-deployment.yaml
