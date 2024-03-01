@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: /snap/kompose/19/kompose-linux-amd64 convert --out manifests
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: splitter
+  name: splitter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: splitter
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: /snap/kompose/19/kompose-linux-amd64 convert --out manifests
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: splitter
+    spec:
+      containers:
+      - args:
+        - python3
+        - -u
+        - src/splitter.py
+        env:
+        - name: KAFKA_BROKER
+          valueFrom:
+            configMapKeyRef:
+              key: KAFKA_BROKER
+              name: env
+        - name: MINIO_INPUT_BUCKET
+          valueFrom:
+            configMapKeyRef:
+              key: MINIO_INPUT_BUCKET
+              name: env
+        - name: MINIO_URL
+          valueFrom:
+            configMapKeyRef:
+              key: MINIO_URL
+              name: env
+        - name: MINIO_VIDEO_CONCATTED_BUCKET
+          valueFrom:
+            configMapKeyRef:
+              key: MINIO_VIDEO_CONCATTED_BUCKET
+              name: env
+        - name: MINIO_VIDEO_SPLITTED_BUCKET
+          valueFrom:
+            configMapKeyRef:
+              key: MINIO_VIDEO_SPLITTED_BUCKET
+              name: env
+        - name: MINIO_VIDEO_SPLIT_BUCKET
+          valueFrom:
+            configMapKeyRef:
+              key: MINIO_VIDEO_SPLIT_BUCKET
+              name: env
+        - name: MINIO_VIDEO_TRANSCODED_BUCKET
+          valueFrom:
+            configMapKeyRef:
+              key: MINIO_VIDEO_TRANSCODED_BUCKET
+              name: env
+        - name: SEGMENT_TIME
+          valueFrom:
+            configMapKeyRef:
+              key: SEGMENT_TIME
+              name: env
+        - name: TEMP_FOLDER
+          valueFrom:
+            configMapKeyRef:
+              key: TEMP_FOLDER
+              name: env
+        image: ghcr.io/apoorva64/video-transcoder-2/transcoder
+        imagePullPolicy: ""
+        name: splitter
+        resources: {}
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null
+status: {}
