@@ -1,6 +1,6 @@
 apiVersion: v1
 data:
-  KAFKA_BROKER: kafka:9092
+  KAFKA_BROKER: kafka-kafka-bootstrap:9092
   MINIO_INPUT_BUCKET: transcoding-video-input
   MINIO_URL: minio:9000
   MINIO_VIDEO_CONCATTED_BUCKET: transcoding-video-concatted
