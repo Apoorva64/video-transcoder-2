@@ -74,7 +74,7 @@ spec:
             configMapKeyRef:
               key: TEMP_FOLDER
               name: env
-        image: ghcr.io/apoorva64/video-transcoder-2/transcoder
+        image: ghcr.io/apoorva64/video-transcoder-2/transcoder:latest
         imagePullPolicy: ""
         name: splitter
         resources: {}

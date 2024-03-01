@@ -8,3 +8,6 @@ resources:
   - splitter-deployment.yaml
   - transcoder-deployment.yaml
   - concater-deployment.yaml
+
+images:
+  -
