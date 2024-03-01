@@ -1,0 +1,10 @@
+resources:
+  - kafka.yaml
+  - minio-claim0-persistentvolumeclaim.yaml
+  - minio-deployment.yaml
+  - minio-service.yaml
+  - env-configmap.yaml
+  - video-loader-deployment.yaml
+  - video-splitter-deployment.yaml
+  - transcoder-deployment.yaml
+  - video-concatter-deployment.yaml

@@ -16,8 +16,8 @@ MINIO_URL = os.getenv("MINIO_URL", "127.0.0.1:9000")
 MINIO_ACCESS_KEY = os.getenv("MINIO_ACCESS_KEY", "minio_user")
 MINIO_SECRET = os.getenv("MINIO_SECRET", "minio_password")
 MINIO_SECURE = os.getenv("MINIO_SECURE", "False").lower() == "true"
-MINIO_BUCKET = os.getenv("MINIO_BUCKET", "input")
 
+MINIO_BUCKET = os.getenv("MINIO_INPUT_BUCKET", "input")
 MINIO_VIDEO_SPLIT_BUCKET = os.getenv("MINIO_VIDEO_SPLIT_BUCKET", "video-split")
 MINIO_VIDEO_SPLITTED_BUCKET = os.getenv("MINIO_VIDEO_SPLITTED_BUCKET", "video-splitted")
 MINIO_VIDEO_TRANSCODED_BUCKET = os.getenv("MINIO_VIDEO_TRANSCODED_BUCKET", "video-transcoded")
