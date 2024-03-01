@@ -9,6 +9,7 @@ data:
   MINIO_VIDEO_TRANSCODED_BUCKET: transcoding-video-transcoded
   SEGMENT_TIME: "00:01:00"
   TEMP_FOLDER: /data
+  NUMBER_OF_PARTITIONS: "8"
 kind: ConfigMap
 metadata:
   creationTimestamp: null
