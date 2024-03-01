@@ -1,4 +1,4 @@
-apiVersion: kafkas.kafka.strimzi.io/v1beta1
+apiVersion: kafkas.kafka.strimzi.io
 kind: Kafka
 metadata:
   name: kafka
