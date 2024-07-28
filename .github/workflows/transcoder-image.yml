@@ -40,3 +40,11 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ghcr.io/${{ steps.downcase.outputs.downcase }}/transcoder:latest,ghcr.io/${{ steps.downcase.outputs.downcase }}/transcoder:${{ github.sha }}
+      - name: Build and push gpu
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          platforms: linux/amd64
+          file: ./cuda.dockerfile
+          push: true
+          tags: ghcr.io/${{ steps.downcase.outputs.downcase }}/transcoder-gpu:latest,ghcr.io/${{ steps.downcase.outputs.downcase }}/transcoder-gpu:${{ github.sha }}

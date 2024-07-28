@@ -1,5 +1,5 @@
 # docker-compose.yml
-version: '3.8'
+version: '3'
 
 services:
   kafka:
@@ -47,7 +47,7 @@ services:
     command: minio server /data
 
   video_loader:
-    image: apoorva64/transcoder
+    image: ghcr.io/apoorva64/video-transcoder-2/transcoder
     build:
       context: .
       dockerfile: Dockerfile
@@ -60,7 +60,7 @@ services:
     command: python3 -u src/video_loader.py
 
   splitter:
-    image: apoorva64/transcoder
+    image: ghcr.io/apoorva64/video-transcoder-2/transcoder
     build:
       context: .
       dockerfile: Dockerfile
@@ -73,8 +73,7 @@ services:
     command: python3 -u src/splitter.py
 
   transcoder:
-    image: apoorva64/transcoder
-    scale: 4
+    image: ghcr.io/apoorva64/video-transcoder-2/transcoder
     restart: always
     build:
       context: .
@@ -86,8 +85,31 @@ services:
 
     command: python3 -u src/transcoder.py
 
+  transcoder-gpu:
+    image: ghcr.io/apoorva64/video-transcoder-2/transcoder-gpu
+    restart: always
+    build:
+      context: .
+      dockerfile: cuda.dockerfile
+    depends_on:
+      - kafka-ui
+    env_file:
+      - .env
+    environment:
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: compute,utility,video
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
+
+    command: python3 -u src/transcoder.py
+
   concater:
-    image: apoorva64/transcoder
+    image: ghcr.io/apoorva64/video-transcoder-2/transcoder
     restart: always
     build:
       context: .
