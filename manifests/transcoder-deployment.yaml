@@ -9,7 +9,8 @@ metadata:
     io.kompose.service: transcoder
   name: transcoder
 spec:
-  replicas: 8
+  replicas: 3
+  
   selector:
     matchLabels:
       io.kompose.service: transcoder
@@ -23,6 +24,8 @@ spec:
       labels:
         io.kompose.service: transcoder
     spec:
+      nodeSelector:
+        beta.kubernetes.io/arch: amd64
       containers:
       - args:
         - python3
