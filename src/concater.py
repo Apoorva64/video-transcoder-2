@@ -1,20 +1,27 @@
 import json
 import logging
 
+import ffmpeg
 from ffmpeg import FFmpeg
 from kafka import KafkaConsumer
 
-from config import VIDEO_CONCAT_TOPIC, KAFKA_BROKER, TEMP_FOLDER, minio_client, \
-    MINIO_VIDEO_TRANSCODED_BUCKET, MINIO_VIDEO_CONCATTED_BUCKET, MAX_REBALANCE_TIMEOUT
-
-import ffmpeg
+from config import (
+    KAFKA_BROKER,
+    MAX_REBALANCE_TIMEOUT,
+    MINIO_VIDEO_CONCATTED_BUCKET,
+    MINIO_VIDEO_TRANSCODED_BUCKET,
+    TEMP_FOLDER,
+    VIDEO_CONCAT_TOPIC,
+    minio_client,
+)
 
 consumer = KafkaConsumer(
     VIDEO_CONCAT_TOPIC,
     bootstrap_servers=KAFKA_BROKER,
     value_deserializer=lambda m: json.loads(m.decode("utf-8")),
     group_id="concater",
-    max_poll_interval_ms=MAX_REBALANCE_TIMEOUT)
+    max_poll_interval_ms=MAX_REBALANCE_TIMEOUT,
+)
 
 logger = logging.getLogger("concater")
 
@@ -40,17 +47,24 @@ for message in consumer:
     concat_list_file = CONCAT_TEMP_FOLDER / f"concat_list{base64}.txt"
     with open(concat_list_file, "w") as f:
         # get all files from minio transcode bucket
-        for file in minio_client.list_objects(
-                MINIO_VIDEO_TRANSCODED_BUCKET, prefix=base64, recursive=True
+        for file in reversed(
+            list(
+                minio_client.list_objects(
+                    MINIO_VIDEO_TRANSCODED_BUCKET, prefix=base64, recursive=True
+                )
+            )
         ):
-
             if not file.is_dir:
                 logger.info(f"Downloading file: {file.object_name}")
                 minio_client.fget_object(
-                    MINIO_VIDEO_TRANSCODED_BUCKET, file.object_name, CONCAT_TEMP_FOLDER / file.object_name
+                    MINIO_VIDEO_TRANSCODED_BUCKET,
+                    file.object_name,
+                    CONCAT_TEMP_FOLDER / file.object_name,
                 )
                 logger.info(f"Downloaded file: {file.object_name}")
-                f.write(f"file '{(CONCAT_TEMP_FOLDER / file.object_name).absolute()}'\n")
+                f.write(
+                    f"file '{(CONCAT_TEMP_FOLDER / file.object_name).absolute()}'\n"
+                )
 
     # Concat files
     output_file = CONCAT_TEMP_FOLDER / f"{base64}_concat.mkv"
@@ -68,20 +82,26 @@ for message in consumer:
         )
     )
 
-
     @ffmpeg.on("progress")
     def on_progress(progress):
         logger.info(f"Frame: {progress.frame}  - Fps: {progress.fps}")
-
 
     @ffmpeg.on("completed")
     def on_completed():
         logger.info("Job Completed !!! 🎉")
 
-
     # minio object name
     object_name = f"{filename}"
-    if len(list(minio_client.list_objects(MINIO_VIDEO_CONCATTED_BUCKET, prefix=object_name))) == 0:
+    if (
+        len(
+            list(
+                minio_client.list_objects(
+                    MINIO_VIDEO_CONCATTED_BUCKET, prefix=object_name
+                )
+            )
+        )
+        == 0
+    ):
         try:
             logger.info("Starting concatenation")
             ffmpeg.execute()
@@ -94,7 +114,9 @@ for message in consumer:
         logger.info(f"Uploaded file: {object_name}")
 
     # delete "base64" folder
-    for file in minio_client.list_objects(MINIO_VIDEO_TRANSCODED_BUCKET, prefix=base64, recursive=True):
+    for file in minio_client.list_objects(
+        MINIO_VIDEO_TRANSCODED_BUCKET, prefix=base64, recursive=True
+    ):
         if not file.is_dir:
             minio_client.remove_object(MINIO_VIDEO_TRANSCODED_BUCKET, file.object_name)
     logger.info(f"Deleted folder: {base64}")
