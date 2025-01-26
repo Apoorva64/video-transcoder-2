@@ -26,65 +26,65 @@ spec:
         io.kompose.service: concater
     spec:
       containers:
-      - args:
-        - python3
-        - -u
-        - src/concater.py
-        env:
-        - name: KAFKA_BROKER
-          valueFrom:
-            configMapKeyRef:
-              key: KAFKA_BROKER
-              name: env
-        - name: MINIO_INPUT_BUCKET
-          valueFrom:
-            configMapKeyRef:
-              key: MINIO_INPUT_BUCKET
-              name: env
-        - name: MINIO_URL
-          valueFrom:
-            configMapKeyRef:
-              key: MINIO_URL
-              name: env
-        - name: MINIO_VIDEO_CONCATTED_BUCKET
-          valueFrom:
-            configMapKeyRef:
-              key: MINIO_VIDEO_CONCATTED_BUCKET
-              name: env
-        - name: MINIO_VIDEO_SPLITTED_BUCKET
-          valueFrom:
-            configMapKeyRef:
-              key: MINIO_VIDEO_SPLITTED_BUCKET
-              name: env
-        - name: MINIO_VIDEO_SPLIT_BUCKET
-          valueFrom:
-            configMapKeyRef:
-              key: MINIO_VIDEO_SPLIT_BUCKET
-              name: env
-        - name: MINIO_VIDEO_TRANSCODED_BUCKET
-          valueFrom:
-            configMapKeyRef:
-              key: MINIO_VIDEO_TRANSCODED_BUCKET
-              name: env
-        - name: SEGMENT_TIME
-          valueFrom:
-            configMapKeyRef:
-              key: SEGMENT_TIME
-              name: env
-        - name: TEMP_FOLDER
-          valueFrom:
-            configMapKeyRef:
-              key: TEMP_FOLDER
-              name: env
-        - name: NUMBER_OF_PARTITIONS
-          valueFrom:
-            configMapKeyRef:
-              key: NUMBER_OF_PARTITIONS
-              name: env
-        image: ghcr.io/apoorva64/video-transcoder-2/transcoder:latest
-        imagePullPolicy: ""
-        name: concater
-        resources: {}
+        - args:
+            - python3
+            - -u
+            - src/concater.py
+          env:
+            - name: KAFKA_BROKER
+              valueFrom:
+                configMapKeyRef:
+                  key: KAFKA_BROKER
+                  name: env
+            - name: MINIO_INPUT_BUCKET
+              valueFrom:
+                configMapKeyRef:
+                  key: MINIO_INPUT_BUCKET
+                  name: env
+            - name: MINIO_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: MINIO_URL
+                  name: env
+            - name: MINIO_VIDEO_CONCATTED_BUCKET
+              valueFrom:
+                configMapKeyRef:
+                  key: MINIO_VIDEO_CONCATTED_BUCKET
+                  name: env
+            - name: MINIO_VIDEO_SPLITTED_BUCKET
+              valueFrom:
+                configMapKeyRef:
+                  key: MINIO_VIDEO_SPLITTED_BUCKET
+                  name: env
+            - name: MINIO_VIDEO_SPLIT_BUCKET
+              valueFrom:
+                configMapKeyRef:
+                  key: MINIO_VIDEO_SPLIT_BUCKET
+                  name: env
+            - name: MINIO_VIDEO_TRANSCODED_BUCKET
+              valueFrom:
+                configMapKeyRef:
+                  key: MINIO_VIDEO_TRANSCODED_BUCKET
+                  name: env
+            - name: SEGMENT_TIME
+              valueFrom:
+                configMapKeyRef:
+                  key: SEGMENT_TIME
+                  name: env
+            - name: TEMP_FOLDER
+              valueFrom:
+                configMapKeyRef:
+                  key: TEMP_FOLDER
+                  name: env
+            - name: NUMBER_OF_PARTITIONS
+              valueFrom:
+                configMapKeyRef:
+                  key: NUMBER_OF_PARTITIONS
+                  name: env
+          image: ghcr.io/apoorva64/video-transcoder-2/transcoder:77c24d8bb8efeb90f2900d1ca32e373db8cc6ae3
+          imagePullPolicy: ""
+          name: concater
+          resources: {}
       restartPolicy: Always
       serviceAccountName: ""
       volumes: null
