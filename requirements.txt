@@ -1,4 +1,4 @@
 kafka-python
 minio
-python-ffmpeg==2.0.4
+python-ffmpeg==2.0.12
 GPUtil
