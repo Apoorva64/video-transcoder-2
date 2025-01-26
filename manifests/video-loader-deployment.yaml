@@ -9,6 +9,8 @@ metadata:
     io.kompose.service: video-loader
   name: video-loader
 spec:
+  nodeSelector:
+    beta.kubernetes.io/arch: amd64
   replicas: 1
   selector:
     matchLabels:
