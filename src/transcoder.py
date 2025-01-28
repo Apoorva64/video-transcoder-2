@@ -102,7 +102,7 @@ if __name__ == "__main__":
         # Convert file
         ffmpeg = configure_ffmpeg(download_path, output_file_path)
         # minio object name
-        object_name = f"{base64}/transcoded_{index}.mkv"
+        object_name = f"{base64}/transcoded_{index:010}.mkv"
 
         @ffmpeg.on("progress")
         def on_progress(progress):
