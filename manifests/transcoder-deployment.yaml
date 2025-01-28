@@ -82,10 +82,11 @@ spec:
                 configMapKeyRef:
                   key: NUMBER_OF_PARTITIONS
                   name: env
-          image: ghcr.io/apoorva64/video-transcoder-2/transcoder:2cced5d6eccd5a839b1c6f96ca3fd53d20da0746
+          image: ghcr.io/apoorva64/video-transcoder-2/transcoder-gpu:38cfe922c26ab1da540a879cde48b5214e898e28
           imagePullPolicy: ""
           name: transcoder
           resources: {}
+          runtimeClassName: nvidia
       restartPolicy: Always
       serviceAccountName: ""
       volumes: null
