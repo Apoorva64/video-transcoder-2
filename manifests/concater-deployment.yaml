@@ -81,7 +81,7 @@ spec:
                 configMapKeyRef:
                   key: NUMBER_OF_PARTITIONS
                   name: env
-          image: ghcr.io/apoorva64/video-transcoder-2/transcoder:77c24d8bb8efeb90f2900d1ca32e373db8cc6ae3
+          image: ghcr.io/apoorva64/video-transcoder-2/transcoder:2cced5d6eccd5a839b1c6f96ca3fd53d20da0746
           imagePullPolicy: ""
           name: concater
           resources: {}
