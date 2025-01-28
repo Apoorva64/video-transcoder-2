@@ -18,6 +18,16 @@ def configure_ffmpeg(
     _download_path: Path,
     _output_file_path: Path,
 ):
+    options = {
+        "c:v": "libx264",
+        "preset": "medium",
+        "crf": "23",
+        "c:a": "aac",
+        "b:a": "192k",
+        "c:s": "srt",
+        "movflags": "+faststart",
+    }
+
     ffmpeg = (
         FFmpeg()
         .option("y")
@@ -25,36 +35,23 @@ def configure_ffmpeg(
         .output(
             _output_file_path,
             {
-                "c:v": "libx264",
-                "preset": "medium",
-                "crf": "23",
-                "c:a": "aac",
-                "b:a": "192k",
-                "c:s": "srt",
-                "movflags": "+faststart",
+                **options,
             },
         )
     )
     if GPU:
+        logger.info("GPU is available, using it for transcoding")
+        options["c:v"] = "h264_nvenc"
+
         ffmpeg = ffmpeg.option("hwaccel", "cuda").output(
             _output_file_path,
             {
-                "c:v": "h264_nvenc",
-                "c:a": "aac",
-                "c:s": "copy",
-                "ac": "3",
-                "pix_fmt": "yuv420p",
-                "map": "0",
-                "vsync": "0",
-                "threads": "1",
-                "rc": "vbr_hq",
-                "rc_lookahead": "32",
-                "refs:v": "16",
-                "bf:v": "3",
-                "coder:v": "cabac",
-                "b_ref_mode": "middle",
+                **options,
             },
         )
+    else:
+        logger.info("GPU is not available, using CPU for transcoding")
+
     return ffmpeg
 
 
