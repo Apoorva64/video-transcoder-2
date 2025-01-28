@@ -89,7 +89,7 @@ for message in consumer:
         logger.info("Job Completed !!! 🎉")
 
     # minio object name
-    object_name = f"{filename}"
+    object_name = f"{filename.rsplit('.', 1)[0]}.mkv"
     if (
         len(
             list(
