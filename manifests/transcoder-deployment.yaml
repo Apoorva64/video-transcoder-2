@@ -82,7 +82,7 @@ spec:
                 configMapKeyRef:
                   key: NUMBER_OF_PARTITIONS
                   name: env
-          image: ghcr.io/apoorva64/video-transcoder-2/transcoder-gpu:4cd78378ed978343eed992e77beed2942090a3a8
+          image: ghcr.io/apoorva64/video-transcoder-2/transcoder-gpu:996a577872f476ef00d8d1c9a47816915c41f718
           imagePullPolicy: ""
           name: transcoder
           resources: {}
