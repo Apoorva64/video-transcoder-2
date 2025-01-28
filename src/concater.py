@@ -47,10 +47,13 @@ for message in consumer:
     concat_list_file = CONCAT_TEMP_FOLDER / f"concat_list{base64}.txt"
     with open(concat_list_file, "w") as f:
         # get all files from minio transcode bucket
-        for file in list(
-            minio_client.list_objects(
-                MINIO_VIDEO_TRANSCODED_BUCKET, prefix=base64, recursive=True
-            )
+        for file in sorted(
+            list(
+                minio_client.list_objects(
+                    MINIO_VIDEO_TRANSCODED_BUCKET, prefix=base64, recursive=True
+                )
+            ),
+            key=lambda x: x.object_name,
         ):
             if not file.is_dir:
                 logger.info(f"Downloading file: {file.object_name}")
