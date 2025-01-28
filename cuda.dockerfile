@@ -4,7 +4,7 @@
 # If you need more help, visit the Dockerfile reference guide at
 # https://docs.docker.com/engine/reference/builder/
 
-FROM nvidia/cuda:12.5.1-cudnn-devel-ubuntu22.04  as base
+FROM nvidia/cuda:12.2.0-devel-ubuntu22.04  as base
 
 # install python 3.10
 RUN apt-get update && apt-get install -y python3.10 python3-pip
@@ -47,8 +47,8 @@ RUN chown -R appuser:appuser /data
 
 ## install ffmpeg
 RUN apt-get update && apt-get install -y ffmpeg
-#    build-essential yasm cmake libtool libc6 libc6-dev unzip wget libnuma1 libnuma-dev git nasm
-#RUN apt-get update && apt install nvidia-cuda-toolkit -y
+    build-essential yasm cmake libtool libc6 libc6-dev unzip wget libnuma1 libnuma-dev git nasm
+RUN apt-get update && apt install nvidia-cuda-toolkit -y
 #RUN mkdir ~/nvidia/ && cd ~/nvidia/
 #RUN git clone https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
 #RUN cd nv-codec-headers && make install
