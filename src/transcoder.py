@@ -75,7 +75,7 @@ if __name__ == "__main__":
         value_deserializer=lambda m: json.loads(m.decode("utf-8")),
         group_id="transcoder",
         auto_offset_reset="earliest",
-        enable_auto_commit=True,
+        enable_auto_commit=False,
         max_poll_records=1,
         max_poll_interval_ms=MAX_REBALANCE_TIMEOUT,
     )
@@ -166,3 +166,4 @@ if __name__ == "__main__":
         output_file_path.unlink(missing_ok=True)
         # remove downloaded file
         download_path.unlink(missing_ok=True)
+        consumer.commit()
