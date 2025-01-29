@@ -4,7 +4,7 @@
 # If you need more help, visit the Dockerfile reference guide at
 # https://docs.docker.com/engine/reference/builder/
 
-FROM nvidia/cuda:12.5.1-cudnn-devel-ubuntu22.04  as base
+FROM nvidia/cuda:12.2.2-runtime-ubuntu22.04  as base
 
 # install python 3.10
 RUN apt-get update && apt-get install -y python3.10 python3-pip
