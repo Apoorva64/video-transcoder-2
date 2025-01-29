@@ -27,11 +27,7 @@ spec:
       nodeSelector:
         beta.kubernetes.io/arch: amd64
       containers:
-        - args:
-            - python3
-            - -u
-            - src/transcoder.py
-          env:
+        - env:
             - name: KAFKA_BROKER
               valueFrom:
                 configMapKeyRef:
@@ -86,7 +82,7 @@ spec:
               value: all
             - name: NVIDIA_DRIVER_CAPABILITIES
               value: compute,utility,video
-          image: ghcr.io/apoorva64/video-transcoder-2/transcoder-gpu:996a577872f476ef00d8d1c9a47816915c41f718
+          image: ghcr.io/apoorva64/video-transcoder-2/transcoder-gpu:9b3bc10da1eafed84b625e9ad0e96349b4061cfc
           imagePullPolicy: ""
           name: transcoder
           resources: { }
