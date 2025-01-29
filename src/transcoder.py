@@ -23,8 +23,8 @@ def configure_ffmpeg(
         "preset": "medium",
         "crf": "23",
         "c:a": "aac",
-        "b:a": "192k",
-        "c:s": "srt",
+            "b:a": "192k",
+            "c:s": "srt",
         "movflags": "+faststart",
     }
 

@@ -106,6 +106,7 @@ services:
               count: 1
               capabilities: [ gpu ]
 
+    command: python3 -u src/transcoder.py
 
   concater:
     image: ghcr.io/apoorva64/video-transcoder-2/transcoder
