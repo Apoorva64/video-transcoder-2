@@ -27,7 +27,11 @@ spec:
       nodeSelector:
         beta.kubernetes.io/arch: amd64
       containers:
-        - env:
+        - args:
+            - python3
+            - -u
+            - src/transcoder.py
+          env:
             - name: KAFKA_BROKER
               valueFrom:
                 configMapKeyRef:
