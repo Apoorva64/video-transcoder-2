@@ -14,7 +14,7 @@ spec:
   selector:
     matchLabels:
       io.kompose.service: transcoder
-  strategy: {}
+  strategy: { }
   template:
     metadata:
       annotations:
@@ -82,12 +82,16 @@ spec:
                 configMapKeyRef:
                   key: NUMBER_OF_PARTITIONS
                   name: env
+            - name: NVIDIA_VISIBLE_DEVICES
+              value: all
+            - name: NVIDIA_DRIVER_CAPABILITIES
+              value: compute,utility,video
           image: ghcr.io/apoorva64/video-transcoder-2/transcoder-gpu:996a577872f476ef00d8d1c9a47816915c41f718
           imagePullPolicy: ""
           name: transcoder
-          resources: {}
-          runtimeClassName: nvidia
+          resources: { }
       restartPolicy: Always
       serviceAccountName: ""
-      volumes: null
-status: {}
+      runtimeClassName: nvidia
+      volumes: []
+status: { }
