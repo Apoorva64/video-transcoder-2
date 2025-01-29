@@ -82,16 +82,16 @@ spec:
                 configMapKeyRef:
                   key: NUMBER_OF_PARTITIONS
                   name: env
-            - name: NVIDIA_VISIBLE_DEVICES
-              value: all
-            - name: NVIDIA_DRIVER_CAPABILITIES
-              value: compute,utility,video
+#            - name: NVIDIA_VISIBLE_DEVICES
+#              value: all
+#            - name: NVIDIA_DRIVER_CAPABILITIES
+#              value: compute,utility,video
           image: ghcr.io/apoorva64/video-transcoder-2/transcoder:c1775d66876dea7ebe93898a13e5bd8877f97b80
           imagePullPolicy: ""
           name: transcoder
           resources: { }
       restartPolicy: Always
       serviceAccountName: ""
-      runtimeClassName: nvidia
+#      runtimeClassName: nvidia
       volumes: []
 status: { }
