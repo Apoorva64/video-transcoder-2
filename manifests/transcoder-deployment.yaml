@@ -86,7 +86,7 @@ spec:
 #              value: all
 #            - name: NVIDIA_DRIVER_CAPABILITIES
 #              value: compute,utility,video
-          image: ghcr.io/apoorva64/video-transcoder-2/transcoder:c1775d66876dea7ebe93898a13e5bd8877f97b80
+          image: ghcr.io/apoorva64/video-transcoder-2/transcoder:a8c9ada85092814179b74a47c79b14d673f10b86
           imagePullPolicy: ""
           name: transcoder
           resources: { }
