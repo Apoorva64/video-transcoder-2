@@ -87,7 +87,7 @@ for message in consumer:
     # upload files
     files = list(output_folder.glob("*"))
 
-    for i, file in enumerate(files):
+    for i, file in enumerate(sorted(files)):
         object_name = base64 + "/" + file.name
         logger.info(f"Uploading file: {file.name} to {object_name}")
 

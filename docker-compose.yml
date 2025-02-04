@@ -78,6 +78,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    scale: 3
     depends_on:
       - kafka-ui
     env_file:
@@ -85,28 +86,28 @@ services:
 
     command: python3 -u src/transcoder.py
 
-  transcoder-gpu:
-    image: ghcr.io/apoorva64/video-transcoder-2/transcoder-gpu
-    restart: always
-    build:
-      context: .
-      dockerfile: cuda.dockerfile
-    depends_on:
-      - kafka-ui
-    env_file:
-      - .env
-    environment:
-      NVIDIA_VISIBLE_DEVICES: all
-      NVIDIA_DRIVER_CAPABILITIES: compute,utility,video
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [ gpu ]
-
-    command: python3 -u src/transcoder.py
+#  transcoder-gpu:
+#    image: ghcr.io/apoorva64/video-transcoder-2/transcoder-gpu
+#    restart: always
+#    build:
+#      context: .
+#      dockerfile: cuda.dockerfile
+#    depends_on:
+#      - kafka-ui
+#    env_file:
+#      - .env
+#    environment:
+#      NVIDIA_VISIBLE_DEVICES: all
+#      NVIDIA_DRIVER_CAPABILITIES: compute,utility,video
+#    deploy:
+#      resources:
+#        reservations:
+#          devices:
+#            - driver: nvidia
+#              count: 1
+#              capabilities: [ gpu ]
+#
+#    command: python3 -u src/transcoder.py
 
   concater:
     image: ghcr.io/apoorva64/video-transcoder-2/transcoder
